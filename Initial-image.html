@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy Gallery - 照片展示</title>
+    <style>
+        /* 全局基础设置 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* 模拟截图中的浅灰底纹背景 */
+            background-color: #f4f4f4; 
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23e8e8e8"/></svg>');
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #555;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* 主容器，控制最大宽度居中 */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* 卡片之间的间距 */
+        }
+
+        /* --- 顶部白色区块 (模拟你截图里的 My toy gallery) --- */
+        .hero-section {
+            background-color: #ffffff;
+            border-radius: 4px;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .hero-text h1 {
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* 模拟手写字体，你可以替换为你的字体 */
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #777;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover { opacity: 0.8; }
+
+        .btn-purple {
+            background-color: #9e8fb2;
+            color: white;
+        }
+
+        .btn-grey {
+            background-color: #e8e8e8;
+            color: #555;
+        }
+
+        /* --- 照片网格布局区 --- */
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        /* 单个照片卡片 */
+        .photo-card {
+            background-color: #ffffff;
+            border-radius: 4px;
+            padding: 20px;
+            flex: 1 1 300px; /* 响应式：每个卡片最小300px，空间足够就一行放3个 */
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        /* 照片添加区域 (占位符) */
+        .photo-placeholder {
+            width: 100%;
+            height: 280px;
+            background-color: #fafafa;
+            border: 2px dashed #d0d0d0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .photo-placeholder:hover {
+            background-color: #f0f0f0;
+            border-color: #9e8fb2;
+        }
+
+        /* 占位符里的文字和加号 */
+        .photo-placeholder::before {
+            content: "+ 添加照片";
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        /* 如果后续你放入了真实的 img 标签，隐藏占位文字 */
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-placeholder img + .placeholder-text { display: none; }
+
+        /* 卡片下方的文字信息 */
+        .card-info h3 {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: normal;
+            text-decoration: underline; /* 模拟截图里的下划线 */
+            text-decoration-style: dotted;
+        }
+
+        .card-info .subtitle {
+            font-size: 0.95rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .card-info .description {
+            font-size: 0.9rem;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .hero-section { flex-direction: column; text-align: center; }
+            .hero-buttons { width: 100%; }
+            .gallery-grid { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 顶部白色展示区 (与你原版类似) -->
+    <div class="hero-section">
+        <div class="hero-text">
+            <h1>My toy gallery</h1>
+            <p>I uploaded the photos I took for my toys on the website as a souvenir.</p>
+        </div>
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-purple">go! <span>➔</span></a>
+            <a href="#" class="btn btn-grey">More info? <span>?</span></a>
+        </div>
+    </div>
+
+    <!-- 照片卡片网格区 -->
+    <div class="gallery-grid">
+        
+        <!-- 第1个卡片 -->
+        <div class="photo-card">
+            <!-- 添加照片区域：后续你可以把这里的 div 换成 <img src="你的图片路径.jpg"> -->
+            <div class="photo-placeholder">
+                <!-- 如果要放图，取消下面这行的注释并修改路径 -->
+                <!-- <img src="images/toy1.jpg" alt="My first one"> -->
+            </div>
+            <div class="card-info">
+                <h3>My first one</h3>
+                <p class="subtitle">The first one is always meaningful.</p>
+                <p class="description">I changed her clothes to make her look like a primary student going on a spring outing.</p>
+            </div>
+        </div>
+
+        <!-- 第2个卡片 -->
+        <div class="photo-card">
+            <div class="photo-placeholder">
+                <!-- <img src="images/toy2.jpg" alt="My favorite one"> -->
+            </div>
+            <div class="card-info">
+                <h3>My favorite one</h3>
+                <p class="subtitle">I actually love every one but she is photogenic.</p>
+                <p class="description">Her eyes are different from other toys and are more inclined to Japanese cartoons.</p>
+            </div>
+        </div>
+
+        <!-- 第3个卡片 -->
+        <div class="photo-card">
+            <div class="photo-placeholder">
+                <!-- <img src="images/toy3.jpg" alt="My special one"> -->
+            </div>
+            <div class="card-info">
+                <h3>My special one</h3>
+                <p class="subtitle">It's very different color.</p>
+                <p class="description">Her color is as happy as enjoying the whole summer sun by the sea.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
